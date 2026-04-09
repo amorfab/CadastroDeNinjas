@@ -16,14 +16,14 @@ public class MissoesController {
 
     // GET - Mandar requisicao para mostrar as missoes do BD
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissao() {
+    public List<MissoesModel> listarMissoes() {
         return missoesService.listarMissoes();
     }
 
     // POST - Mandar requisicao para criar as missoes no BD
     @PostMapping("/criar")
-    public String criarMissao(){
-        return "Missao criada com sucesso";
+    public MissoesModel criarMissao(@RequestBody MissoesModel missao){
+        return missoesService.criarMissao(missao);
     }
 
     // PUT - Mandar requisicao para alterar as missoes no BD
