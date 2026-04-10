@@ -22,4 +22,9 @@ public class MissoesService {
     public MissoesModel criarMissao(MissoesModel missao){
         return missoesRepository.save(missao);
     }
+
+    //Deletar uma missao por ID - Tem que ser um metodo VOID
+    public void deletarMissao(Long id){
+        missoesRepository.deleteById(id);
+    }
 }
