@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
+import dev.java10x.CadastroDeNinjas.Ninjas.NinjaModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class MissoesController {
     }
 
     // PUT - Mandar requisicao para alterar as missoes no BD
-    @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "Missao alterada com sucesso";
+    @PutMapping("/alterar/{id}")
+    public MissoesModel alterarMissao(@PathVariable Long id, @RequestBody MissoesModel missaoAtualizada){
+        return missoesService.atualizarMissao(id, missaoAtualizada);
     }
 
     // DELETE - Mandar requisicao para deletar uma missao no BD
@@ -37,7 +38,4 @@ public class MissoesController {
     public void deletarMissao(@PathVariable Long id){
         missoesService.deletarMissao(id);
     }
-
-
-
 }
