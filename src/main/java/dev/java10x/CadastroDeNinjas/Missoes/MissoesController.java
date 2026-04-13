@@ -12,24 +12,26 @@ public class MissoesController {
     private MissoesService missoesService;
 
     public MissoesController(MissoesService missoesService) {
+
         this.missoesService = missoesService;
+
     }
 
     // GET - Mandar requisicao para mostrar as missoes do BD
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissoes() {
+    public List<MissoesDTO> listarMissoes() {
         return missoesService.listarMissoes();
     }
 
     // POST - Mandar requisicao para criar as missoes no BD
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missao){
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missao){
         return missoesService.criarMissao(missao);
     }
 
     // PUT - Mandar requisicao para alterar as missoes no BD
     @PutMapping("/alterar/{id}")
-    public MissoesModel alterarMissao(@PathVariable Long id, @RequestBody MissoesModel missaoAtualizada){
+    public MissoesDTO alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO missaoAtualizada){
         return missoesService.atualizarMissao(id, missaoAtualizada);
     }
 
