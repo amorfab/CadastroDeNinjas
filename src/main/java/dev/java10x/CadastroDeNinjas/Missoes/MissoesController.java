@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
 
-    private MissoesService missoesService;
+    private final MissoesService missoesService;
 
     public MissoesController(MissoesService missoesService) {
         this.missoesService = missoesService;
