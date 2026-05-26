@@ -1,5 +1,5 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
-
+import dev.java10x.CadastroDeNinjas.Missoes.MissoesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +10,12 @@ import java.util.stream.Collectors;
 public class NinjaService {
     private final NinjaRepository ninjaRepository;
     private final NinjaMapper ninjaMapper;
+    private final MissoesRepository missoesRepository;
 
-    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper) {
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper, MissoesRepository missoesRepository) {
         this.ninjaRepository = ninjaRepository;
         this.ninjaMapper = ninjaMapper;
+        this.missoesRepository = missoesRepository;
     }
 
     // Listar todos os meus ninjas
@@ -33,6 +35,10 @@ public class NinjaService {
     // Criar um novo ninja
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO){
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
+        if (ninjaDTO.getMissaoId() != null) {
+            missoesRepository.findById(ninjaDTO.getMissaoId())
+                    .ifPresent(ninja::setMissoes);
+        }
         ninja = ninjaRepository.save(ninja);
         return ninjaMapper.map(ninja);
     }
@@ -48,6 +54,10 @@ public class NinjaService {
         if (ninjaExistente.isPresent()){
             NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
             ninjaAtualizado.setId(id);
+            if (ninjaDTO.getMissaoId() != null) {
+                missoesRepository.findById(ninjaDTO.getMissaoId())
+                        .ifPresent(ninjaAtualizado::setMissoes);
+            }
             NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
             return ninjaMapper.map(ninjaSalvo);
         }

@@ -30,13 +30,17 @@
             display: block;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+        }
+
+        select {
+            margin-bottom: 15px;
         }
 
         button {
@@ -90,6 +94,15 @@
 
         <label for="rank">Rank:</label>
         <input type="text" id="rank" th:field="*{rank}" />
+
+        <label for="missaoId">Missão:</label>
+        <select id="missaoId" th:field="*{missaoId}">
+            <option value="">-- Selecione uma missão --</option>
+            <option th:each="missao : ${missoes}"
+                    th:value="${missao.id}"
+                    th:text="${missao.nome}">
+            </option>
+        </select>
 
         <button type="submit">Cadastrar Ninja</button>
     </form>

@@ -1,4 +1,5 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
+import dev.java10x.CadastroDeNinjas.Missoes.MissoesRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +12,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/ninjas/ui")
-
 public class NinjaControllerUi {
     private final NinjaService ninjaService;
+    private final MissoesRepository missoesRepository;
 
-    public NinjaControllerUi(NinjaService ninjaService) {
+
+    public NinjaControllerUi(NinjaService ninjaService, MissoesRepository missoesRepository) {
         this.ninjaService = ninjaService;
+        this.missoesRepository = missoesRepository;
     }
 
     // Mostrar todos os ninjas (READ)
@@ -50,6 +53,7 @@ public class NinjaControllerUi {
     @GetMapping("/adicionar")
     public String mostrarFormularioAdicionarNinja(Model model) {
         model.addAttribute("ninja", new NinjaDTO());
+        model.addAttribute("missoes", missoesRepository.findAll());
         return "adicionarNinja";
     }
 
@@ -65,6 +69,7 @@ public class NinjaControllerUi {
         NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
         if (ninja != null) {
             model.addAttribute("ninja", ninja);
+            model.addAttribute("missoes", missoesRepository.findAll());
             return "alterarNinja";
         } else {
             return "listarNinjas";
