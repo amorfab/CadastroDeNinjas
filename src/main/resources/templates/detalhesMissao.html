@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Detalhes do Ninja</title>
+    <title>Detalhes da Missao</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
         body {
@@ -75,28 +75,30 @@
 
 </head>
 <body>
-<h1>Detalhes do Ninja</h1>
+<h1>Detalhes da Missão</h1>
 <div class="card">
-    <h2 th:text="${ninja.nome}"></h2>
-    <p><strong>Email:</strong> <span th:text="${ninja.email}"></span></p>
-    <p><strong>Idade:</strong> <span th:text="${ninja.idade}"></span></p>
-    <p><strong>Rank:</strong> <span th:text="${ninja.rank}"></span></p>
-    <h3>Missoes:</h3>
+    <h2 th:text="${missoes.nome}"></h2>
+    <p><strong>Dificuldade:</strong> <span th:text="${missoes.dificuldade}"></span></p>
+    <h3>Ninjas:</h3>
     <table>
         <thead>
         <tr>
             <th>Nome</th>
-            <th>Dificuldade</th>
+            <th>Idade</th>
+            <th>Email</th>
+            <th>Rank</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="missao : ${ninja.missoes}">
-            <td th:text="${missao.nome}"></td>
-            <td th:text="${missao.dificuldade}"></td>
+        <tr th:each="ninja : ${missoes.ninjas}">
+            <td th:text="${ninja.nome}"></td>
+            <td th:text="${ninja.idade}"></td>
+            <td th:text="${ninja.email}"></td>
+            <td th:text="${ninja.rank}"></td>
         </tr>
         </tbody>
     </table>
 </div>
-<a th:href="@{/ninjas/ui/listar}">Voltar para a lista de missões</a>
+<a th:href="@{/missoes/ui/listar}">Voltar para a lista de missões</a>
 </body>
 </html>

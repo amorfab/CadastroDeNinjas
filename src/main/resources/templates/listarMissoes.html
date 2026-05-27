@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Tabela de Missões</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ae2ccf;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            background-color: #ae2ccf;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #833099;
+        }
+
+        .btn-deletar {
+            background-color: #f44336;
+        }
+
+        .btn-deletar:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+
+</head>
+<body>
+<h1>Lista de missões</h1>
+<a class="btn-adicionar" th:href="@{/missoes/ui/adicionar}">Adicionar Nova Missão</a>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Dificuldade</th>
+        <th>Ninjas</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each ="missoes: ${missoes}">
+        <td th:text="${missoes.id}"></td>
+        <td th:text="${missoes.nome}"></td>
+        <td th:text="${missoes.dificuldade}"></td>
+        <td>
+            <span th:if="${not #lists.isEmpty(missoes.ninjas)}">
+                <span th:each="ninja : ${missoes.ninjas}" th:text="${ninja.nome + ' | '}"></span>
+            </span>
+            <span th:if="${#lists.isEmpty(missoes.ninjas)}">Sem Ninjas cadastrados</span>
+        </td>
+
+        <td>
+            <a th:href="@{/missoes/ui/listar/{id}(id=${missoes.id})}">Ver Detalhes</a>
+            <a th:href="@{/missoes/ui/alterar/{id}(id=${missoes.id})}">Alterar</a>
+            <a th:href="@{/missoes/ui/deletar/{id}(id=${missoes.id})}">Deletar</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
